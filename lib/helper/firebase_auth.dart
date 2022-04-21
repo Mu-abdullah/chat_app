@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../constants/functions.dart';
-
+import '../presentaion/home.dart';
 
 Future<void> firebaseRegister ({required String emailAddress,required String password}) async {
   try {
@@ -23,12 +23,14 @@ Future<void> firebaseRegister ({required String emailAddress,required String pas
 }
 }
 
-Future<void> firebaseLogin ({required String mail, required String password})async {
+Future<void> firebaseLogin (context,{required String mail, required String password})async {
   try {
     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: mail,
         password: password
     );
+    showToast(backgroundColor: Colors.black,text: "Login Successes");
+    navigateAndFinish(context,widget: Home());
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       showToast(backgroundColor: Colors.black,text: "No user found for that email.");

@@ -43,14 +43,15 @@ class SignUp extends StatelessWidget {
                     ),
                   ),
                   defaultFormField(
-                      label: "EMail",
+                      label: "Email",
                       prefix: Icons.mail,
                       type: TextInputType.emailAddress,
                       suffix: Icon(Icons.arrow_forward_ios_rounded),
                       isPassword: false,
                       onChange: (value) {
                         mail = value;
-                      }),
+                      },
+                   ),
                   SizedBox(
                     height: height * .02,
                   ),
@@ -65,7 +66,10 @@ class SignUp extends StatelessWidget {
                       isPassword: true,
                       onChange: (value) {
                         password = value;
-                      }),
+                      } ,
+
+                      ),
+
                   SizedBox(
                     height: height * .02,
                   ),

@@ -15,7 +15,12 @@ Widget defaultFormField({
   obscureText: isPassword,
   onFieldSubmitted: onSubmit,
   onChanged: onChange,
-
+  validator: (data){
+    if(data!.isEmpty) {
+          return "field is required";
+        }
+        return null;
+  },
   decoration: InputDecoration(
     labelText: label,
     fillColor: Colors.black,
