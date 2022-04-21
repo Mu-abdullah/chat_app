@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 Widget defaultFormField({
-  required TextEditingController controller,
+   TextEditingController? controller,
   required TextInputType type,
   Function(String)? onSubmit,
   Function(String)? onChange,
   bool isPassword = false,
-  required String? Function(String?)? validate,
   required String label,
   required IconData prefix,
   Widget? suffix,
@@ -16,7 +15,7 @@ Widget defaultFormField({
   obscureText: isPassword,
   onFieldSubmitted: onSubmit,
   onChanged: onChange,
-  validator: validate,
+
   decoration: InputDecoration(
     labelText: label,
     fillColor: Colors.black,

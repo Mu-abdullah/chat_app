@@ -6,23 +6,27 @@ Widget defaultButton({
   Color background = Colors.blue,
   bool isUpperCase = true,
   double radius = 3.0,
-  required final Function()? function,
+  required Function() function,
   required String text,
 }) =>
-    Container(
-      width: width,
-      height: 50.0,
-      child: TextButton(
-        onPressed: function,
-        child: Text(
-          isUpperCase ? text.toUpperCase() : text,
-          style: const TextStyle(
-            color: Colors.white,
-          ),
+    GestureDetector(
+      onTap:function,
+      child: Container(
+        width: width,
+        height: 50.0,
+         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: background,
         ),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: background,
+        child: Center(
+          child: Text(
+              isUpperCase ? text.toUpperCase() : text,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+        ),
+        
+       
       ),
     );
