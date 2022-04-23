@@ -42,7 +42,7 @@ class SignUp extends StatelessWidget {
                       width: width * .8,
                     ),
                   ),
-                  defaultFormField(
+                  defaultFormField(context,
                       label: "Email",
                       prefix: Icons.mail,
                       type: TextInputType.emailAddress,
@@ -55,7 +55,7 @@ class SignUp extends StatelessWidget {
                   SizedBox(
                     height: height * .02,
                   ),
-                  defaultFormField(
+                  defaultFormField(context,
                       label: "Password",
                       prefix: Icons.lock,
                       type: TextInputType.visiblePassword,
