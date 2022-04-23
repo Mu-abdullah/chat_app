@@ -10,13 +10,14 @@ Widget defaultFormField(context,{
   required String label,
   required IconData prefix,
   Widget? suffix,
+  int? maxLines = 1,
 }) =>
     Container(
       constraints : BoxConstraints(minWidth: double.infinity, maxHeight: MediaQuery.of(context).size.height*.2),
       child: TextFormField(
         controller: controller,
         keyboardType: type,
-        maxLines: null,
+        maxLines : maxLines,
         focusNode: FocusNode(),
         obscureText: isPassword,
         onFieldSubmitted: onSubmit,
@@ -47,3 +48,4 @@ Widget defaultFormField(context,{
         ),
       ),
     );
+

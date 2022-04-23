@@ -13,16 +13,7 @@ class Home extends StatelessWidget {
       FirebaseFirestore.instance.collection(kMessages);
   var controller = TextEditingController();
 
-  final Stream<DocumentSnapshot<Map<String, dynamic>>> message =
-      FirebaseFirestore.instance
-          .collection(kMessages)
-          .doc(kMessages)
-          .snapshots();
-  final Stream<DocumentSnapshot<Map<String, dynamic>>> time =
-  FirebaseFirestore.instance
-      .collection(kMessages)
-      .doc(kCreatedAt)
-      .snapshots();
+
 
   final ScrollController _scrollController = ScrollController();
 
@@ -73,6 +64,7 @@ class Home extends StatelessWidget {
                             prefix: Icons.message,
                             label: "Type your message",
                             isPassword: false,
+                            maxLines: null,
                             suffix: IconButton(
                                 onPressed: () {
                                   if(controller.text.isNotEmpty){

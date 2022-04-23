@@ -1,3 +1,4 @@
+import 'package:chat_app/constants/strings.dart';
 import 'package:chat_app/presentaion/screen/sign/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -77,7 +78,7 @@ class SignUp extends StatelessWidget {
                     child: defaultButton(
                         text: "Sign Up",
                         function: () async {
-                          firebaseRegister(
+                          firebaseRegister(context,
                               emailAddress: mail!, password: password!);
                           // var auth = FirebaseAuth.instance;
                           // UserCredential credential =
@@ -96,7 +97,10 @@ class SignUp extends StatelessWidget {
                   Center(
                     child: GestureDetector(
                       onTap: () {
-                        navigateAndFinish(context, widget: SignIn());
+                        Navigator.pushNamed(
+                          context,
+                          signIn,
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

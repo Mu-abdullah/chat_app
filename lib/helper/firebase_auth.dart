@@ -1,9 +1,10 @@
+import 'package:chat_app/constants/strings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../constants/functions.dart';
 import '../presentaion/screen/chatting/home.dart';
 
-Future<void> firebaseRegister(
+Future<void> firebaseRegister(context,
     {required String emailAddress, required String password}) async {
   try {
     final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -11,6 +12,12 @@ Future<void> firebaseRegister(
       password: password,
     );
     showToast(backgroundColor: Colors.black, text: "Registration Successes");
+
+    Navigator.pushNamed(
+      context,
+      signIn,
+    );
+
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
       print('The password provided is too weak.');
@@ -31,7 +38,12 @@ Future<void> firebaseLogin(context,
     final credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: mail, password: password);
     showToast(backgroundColor: Colors.black, text: "Login Successes");
-    navigateAndFinish(context, widget: Home());
+
+    Navigator.pushNamed(
+      context,
+      home,
+    );
+
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       showToast(

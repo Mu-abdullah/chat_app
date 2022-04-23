@@ -1,3 +1,4 @@
+import 'package:chat_app/constants/strings.dart';
 import 'package:chat_app/presentaion/screen/sign/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -91,9 +92,6 @@ class _SignInState extends State<SignIn> {
                         child: defaultButton(
                             text: "Login",
                             function: () async {
-                              // var auth = FirebaseAuth.instance;
-                              // UserCredential credential = await
-                              // auth.signInWithEmailAndPassword(email: mail!, password: password!);
                               if (formKey.currentState!.validate()) {
                                 setState(() {
                                   isLoading = true;
@@ -119,7 +117,10 @@ class _SignInState extends State<SignIn> {
                       Center(
                         child: GestureDetector(
                           onTap: () {
-                            navigateAndFinish(context, widget: SignUp());
+                            Navigator.pushNamed(
+                              context,
+                              signUp,
+                            );
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
