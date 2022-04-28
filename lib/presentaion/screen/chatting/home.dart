@@ -8,12 +8,15 @@ import '../../widgets/textfeild.dart';
 class Home extends StatelessWidget {
   Home({
     Key? key,
+    required this.senderID,
   }) : super(key: key);
+
+  var senderID;
+
   CollectionReference messages =
       FirebaseFirestore.instance.collection(kMessages);
+
   var controller = TextEditingController();
-
-
 
   final ScrollController _scrollController = ScrollController();
 
@@ -42,6 +45,10 @@ class Home extends StatelessWidget {
                 return Scaffold(
                   appBar: AppBar(
                     backgroundColor: kPrimaryColor,
+                    title: Text("Chatting",style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white
+                    ),),
                   ),
                   body: Column(
                     children: [
@@ -50,62 +57,56 @@ class Home extends StatelessWidget {
                           reverse: true,
                           controller: _scrollController,
                           itemCount: messagesList.length,
-                          itemBuilder: (context, index) => ChatBubble(
-                            message: messagesList[index],
-                            createdAt: messagesList[index],
-                          ),
+                          itemBuilder: (context, index) =>
+                              messagesList[index].Id == senderID
+                                  ? ChatBubble(
+                                      message: messagesList[index],
+                                      createdAt: messagesList[index],
+                                    )
+                                  : ChatBubbleForFriend(
+                                      message: messagesList[index],
+                                      createdAt: messagesList[index]),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8, horizontal: 8),
-                        child: defaultFormField(context,
-                            type: TextInputType.multiline,
-                            prefix: Icons.message,
-                            label: "Type your message",
-                            isPassword: false,
-                            maxLines: null,
-                            suffix: IconButton(
-                                onPressed: () {
-                                  if(controller.text.isNotEmpty){
-                                    messages.add({
-                                      kMessages: controller.text,
-                                      kCreatedAt: DateTime.now(),
-                                    });
-                                    controller.clear();
+                        child: defaultFormField(
+                          context,
+                          type: TextInputType.multiline,
+                          prefix: Icons.message,
+                          label: "Type your message",
+                          isPassword: false,
+                          maxLines: null,
+                          suffix: IconButton(
+                              onPressed: () {
+                                if (controller.text.isNotEmpty) {
+                                  messages.add({
+                                    kMessages: controller.text,
+                                    kCreatedAt: DateTime.now(),
+                                    kId: senderID,
+                                  });
+                                  controller.clear();
 
-                                    _scrollController.animateTo(
-                                      0.0,
-                                      curve: Curves.easeOut,
-                                      duration: const Duration(milliseconds: 300),
-                                    );
-                                  }else{
-                                    _scrollController.animateTo(
-                                      0.0,
-                                      curve: Curves.easeOut,
-                                      duration: const Duration(milliseconds: 300),
-                                    );
-                                  }
-
-                                },
-                                icon:const Icon(
-                                  Icons.send,
-                                  color: kPrimaryColor,
-                                )),
-                            controller: controller,
-                            onSubmit: (data) {
-                              messages.add({
-                                kMessages: data,
-                                kCreatedAt: DateTime.now(),
-                              });
-                              controller.clear();
-
-                              _scrollController.animateTo(
-                                0.0,
-                                curve: Curves.easeOut,
-                                duration: const Duration(milliseconds: 300),
-                              );
-                            }),
+                                  _scrollController.animateTo(
+                                    0.0,
+                                    curve: Curves.easeOut,
+                                    duration: const Duration(milliseconds: 300),
+                                  );
+                                } else {
+                                  _scrollController.animateTo(
+                                    0.0,
+                                    curve: Curves.easeOut,
+                                    duration: const Duration(milliseconds: 300),
+                                  );
+                                }
+                              },
+                              icon: const Icon(
+                                Icons.send,
+                                color: kPrimaryColor,
+                              )),
+                          controller: controller,
+                        ),
                       )
                     ],
                   ),

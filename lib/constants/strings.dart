@@ -1,4 +1,4 @@
 
-const signUp = "/";
-const signIn = "/signIn";
+const signUp = "/signUp";
+const signIn = "/";
 const home = "/home";

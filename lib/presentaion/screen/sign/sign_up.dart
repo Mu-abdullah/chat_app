@@ -97,7 +97,7 @@ class SignUp extends StatelessWidget {
                   Center(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(
+                        Navigator.pushReplacementNamed(
                           context,
                           signIn,
                         );

@@ -16,6 +16,8 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    ModalRoute.of(context)!.settings.arguments;
+
     var time = message.createdAt.toDate();
     DateFormat.yMMMd().add_jm().format(time);
     return Align(
@@ -100,7 +102,13 @@ class ChatBubbleForFriend extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Column(
+                    Text(
+                      message.message,
+                      maxLines: 10,
+                      style: const TextStyle(color: Colors.white, fontSize: 21),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width*.01,),
+                    Column(mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SizedBox(height: MediaQuery.of(context).size.height*.01,),
                         Text(DateFormat.jm().format(time).toString(),style: TextStyle(
@@ -109,15 +117,8 @@ class ChatBubbleForFriend extends StatelessWidget {
                         ),),
                       ],
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width*.01,),
-                    Text(
-                      message.message,
-                      maxLines: 10,
-                      style: const TextStyle(color: Colors.white, fontSize: 21),
-                    ),
                   ],
                 ),
-
               ],
             ),
           ),

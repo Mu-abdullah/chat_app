@@ -34,26 +34,5 @@ Future<void> firebaseRegister(context,
 
 Future<void> firebaseLogin(context,
     {required String mail, required String password}) async {
-  try {
-    final credential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: mail, password: password);
-    showToast(backgroundColor: Colors.black, text: "Login Successes");
 
-    Navigator.pushNamed(
-      context,
-      home,
-    );
-
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      showToast(
-          backgroundColor: Colors.black, text: "No user found for that email.");
-      print('No user found for that email.');
-    } else if (e.code == 'wrong-password') {
-      showToast(
-          backgroundColor: Colors.black,
-          text: "Wrong password provided for that user.");
-      print('Wrong password provided for that user.');
-    }
-  }
 }

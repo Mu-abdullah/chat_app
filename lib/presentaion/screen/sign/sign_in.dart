@@ -1,10 +1,8 @@
 import 'package:chat_app/constants/strings.dart';
-import 'package:chat_app/presentaion/screen/sign/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../constants/functions.dart';
-import '../../../helper/firebase_auth.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/textfeild.dart';
 
@@ -59,7 +57,8 @@ class _SignInState extends State<SignIn> {
                           width: width * .8,
                         ),
                       ),
-                      defaultFormField(context,
+                      defaultFormField(
+                        context,
                         label: "Email",
                         prefix: Icons.mail,
                         type: TextInputType.emailAddress,
@@ -72,7 +71,8 @@ class _SignInState extends State<SignIn> {
                       SizedBox(
                         height: height * .02,
                       ),
-                      defaultFormField(context,
+                      defaultFormField(
+                        context,
                         label: "Password",
                         prefix: Icons.lock,
                         type: TextInputType.visiblePassword,
@@ -96,8 +96,32 @@ class _SignInState extends State<SignIn> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                firebaseLogin(context,
-                                    mail: mail!, password: password!);
+                                try {
+                                  final credential = await FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                          email: mail!, password: password!);
+                                  showToast(
+                                      backgroundColor: Colors.black,
+                                      text: "Login Successes");
+
+                                  Navigator.pushReplacementNamed(context, home,
+                                      arguments: mail);
+
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == 'user-not-found') {
+                                    showToast(
+                                        backgroundColor: Colors.black,
+                                        text: "No user found for that email.");
+                                    print('No user found for that email.');
+                                  } else if (e.code == 'wrong-password') {
+                                    showToast(
+                                        backgroundColor: Colors.black,
+                                        text:
+                                            "Wrong password provided for that user.");
+                                    print(
+                                        'Wrong password provided for that user.');
+                                  }
+                                }
 
                                 setState(() {
                                   isLoading = false;
@@ -117,7 +141,7 @@ class _SignInState extends State<SignIn> {
                       Center(
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(
+                            Navigator.pushReplacementNamed(
                               context,
                               signUp,
                             );
